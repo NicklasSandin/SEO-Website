@@ -1,70 +1,43 @@
-# Paste the script and save (Ctrl+O, Enter, Ctrl+X)
 #!/bin/bash
-# clean_repo.sh
-# Clean Flask + React repo for GitHub push
+set -e
 
-# Set repo root
-REPO_ROOT=$(pwd)
+echo "🚀 Cleaning repo before pushing to GitHub..."
 
-echo "Cleaning repo in $REPO_ROOT ..."
+# 1. Remove unwanted large dirs from Git cache (not from disk)
+git rm -r --cached node_modules 2>/dev/null || true
+git rm -r --cached dist 2>/dev/null || true
+git rm -r --cached build 2>/dev/null || true
+git rm -r --cached venv 2>/dev/null || true
+git rm -r --cached seo-backend/venv 2>/dev/null || true
+git rm --cached seo-backend.zip 2>/dev/null || true
 
-# 1️⃣ Create .gitignore
-cat <<EOL > .gitignore
-# Node / React
+# 2. Update .gitignore so they never get committed again
+cat <<EOL >> .gitignore
+
+# Ignore heavy stuff
 node_modules/
 dist/
 build/
-.env
+venv/
+seo-backend/venv/
 *.log
-
-# Python / Flask
-__pycache__/
-*.pyc
-instance/
 *.sqlite3
-
-# OS / IDE
-.DS_Store
-.vscode/
-.idea/
+seo-backend.zip
 EOL
 
-echo ".gitignore created."
-
-# 2️⃣ Remove ignored files from Git cache
-git rm -r --cached node_modules 2>/dev/null
-git rm -r --cached dist 2>/dev/null
-git rm -r --cached build 2>/dev/null
-git rm -r --cached *.log 2>/dev/null
-git rm -r --cached *.sqlite3 2>/dev/null
-
-echo "Removed cached ignored files."
-
-# 3️⃣ Optional: Install and configure Git LFS for large files
-if ! command -v git-lfs &> /dev/null
-then
-    echo "Installing Git LFS..."
-    sudo apt update && sudo apt install -y git-lfs
-fi
-
+# 3. Add Git LFS for binary files (images, pdfs, zips, etc.)
 git lfs install
-
-# Track common large files
-git lfs track "*.pdf"
-git lfs track "*.zip"
-git lfs track "*.png"
-
+git lfs track "*.pdf" "*.png" "*.jpg" "*.jpeg" "*.zip"
 git add .gitattributes
-echo "Git LFS configured for PDF, ZIP, PNG files."
 
-# 4️⃣ Add all changes and commit
+# 4. Stage all changes
+git add .gitignore
 git add .
-git commit -m "Clean repo: remove build artifacts, logs, cache; setup .gitignore and Git LFS"
 
-echo "Repo cleaned and committed."
+# 5. Commit cleanup
+git commit -m "Repo cleanup: remove venv/node_modules, add .gitignore, enable LFS" || echo "✅ Nothing new to commit"
 
-# 5️⃣ Instructions for push
-echo "✅ Repo is ready. Push with:"
-echo "git push origin main"
+# 6. Force push to GitHub
+git push origin main --force
 
-
+echo "🎉 Repo cleaned and pushed successfully!"

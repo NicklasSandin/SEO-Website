@@ -15,3 +15,13 @@ instance/
 .DS_Store
 .vscode/
 .idea/
+
+# Ignore heavy stuff
+node_modules/
+dist/
+build/
+venv/
+seo-backend/venv/
+*.log
+*.sqlite3
+seo-backend.zip
