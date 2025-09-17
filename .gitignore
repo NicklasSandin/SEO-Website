@@ -16,3 +16,5 @@ instance/
 .vscode/
 .idea/
 venv/
+seo-backend/venv/
+seo-backend.zip
