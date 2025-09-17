@@ -100,7 +100,7 @@ export default function LandingPage() {
             </div>
             <div className="bg-white p-8 rounded-xl shadow-lg">
               <p className="text-gray-700 italic mb-4">
-                "We used to struggle with manual SEO tasks. SEO Pro automated everything, saving us countless hours and delivering fantastic results."
+                "We used to struggle with manual SEO tasks. SwedensAi automated everything, saving us countless hours and delivering fantastic results."
               </p>
               <p className="font-semibold text-gray-900">Sofia Karlsson, Digital Manager at H&M</p>
             </div>

@@ -15,10 +15,10 @@ export default function Navigation() {
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-2">
-            <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
-              <TrendingUp className="h-5 w-5 text-white" />
+            <div className="w-8 h-8 bg-blue-900 rounded-lg flex items-center justify-center">
+              <TrendingUp className="h-5 w-5 text-yellow-400" />
             </div>
-            <span className="text-xl font-bold text-gray-900">SEO Pro</span>
+            <span className="text-xl font-bold text-blue-900">SwedensAi</span>
           </Link>
 
           {/* Desktop Navigation */}
