@@ -1,0 +1,16 @@
+# docker compose up --build        (after: cp .env.example .env and set SECRET_KEY)
+services:
+  siktio:
+    build: .
+    env_file: .env
+    environment:
+      APP_ENV: production
+      DATABASE_URL: sqlite:////data/siktio.db
+    ports:
+      - "127.0.0.1:8000:8000"   # localhost only; put a TLS reverse proxy in front for anything public
+    volumes:
+      - siktio-data:/data
+    restart: unless-stopped
+
+volumes:
+  siktio-data:
