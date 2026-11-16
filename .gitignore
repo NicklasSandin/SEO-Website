@@ -1,7 +1,26 @@
+# Dependencies and build output
 node_modules/
 venv/
+.venv/
 dist/
 build/
-seo-backend.zip
-*.log
+seo-backend/src/static/
+
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.coverage
+htmlcov/
+*.egg-info/
+
+# Local data and secrets: never commit these
+.env
+.env.*
+!.env.example
+*.db
+*.sqlite
 *.sqlite3
+*.log
+instance/
+seo-backend.zip
